@@ -8,16 +8,26 @@ export type AgentChoice = {
 };
 
 export async function fetchAgentPicks(): Promise<Record<string, string>> {
-  const result: APIResponse<AgentChoice[]> = await fetch(
-    `${process.env.CTFD_API_URL}/valorant/picks`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.CTFD_API_KEY}`,
-      },
+  try {
+    const result: APIResponse<AgentChoice[]> = await fetch(
+      `${process.env.CTFD_API_URL}/valorant/picks`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.CTFD_API_KEY}`,
+        },
+      }
+    ).then((res) => res.json());
+
+    if (result.data) {
+      return Object.fromEntries(
+        result.data.map(({ team_name, agent_name }) => [team_name, agent_name])
+      );
+    } else {
+      throw new Error("Response data is missing.");
     }
-  ).then((res) => res.json());
-  return Object.fromEntries(
-    result.data?.map(({ team_name, agent_name }) => [team_name, agent_name]) ?? []
-  );
+  } catch (error) {
+    console.error("Error fetching agent picks:", error);
+    throw error;
+  }
 }

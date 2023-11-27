@@ -20,7 +20,7 @@ export function useAgentPicks({
       taskQueue.push(async () => {
         setAgentPicks((picks) => ({ ...picks, [data.team]: data.agent }));
       });
-      taskQueue.push(() => playSound(`${data.agent}/pick`));
+      taskQueue.push(async () => await playSound(`${data.agent}/pick`));
     });
     return () => {
       socket.close();

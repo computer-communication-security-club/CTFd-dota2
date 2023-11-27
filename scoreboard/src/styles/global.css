@@ -2,14 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-.bg-valorant {
-	background-image: url('/assets/background.webp');
+@font-face {
+  font-family: "radiance-regular";
+  src: url("./radiance-regular.otf");
+}
+.bg-heropick {
+  background-image: url("/assets/heropickbackground.png");
 }
 
 .bg-split {
-	background-image: url('/assets/split.webp');
+  background-image: url("/assets/dotabackground.jpg");
 }
 
 .bg-icebox {
-	background-image: url('/assets/icebox.webp');
+  background-image: url("/assets/dotabackground2.jpg");
+  background-position: center;
+}
+
+body {
+  font-family: "radiance-regular";
 }

@@ -83,9 +83,9 @@ OAUTH_CLIENT_ID = None
 OAUTH_CLIENT_SECRET = None
 ```
 
-## Valorant plugin
+## Dota 2 plugin
 
-This fork has a Valorant plugin for agent select for every team and an integrated scoreboard with sound effects. To set plugin up use following steps:
+This fork has a Dota 2 plugin for hero select for every team and an integrated scoreboard with sound effects. To set plugin up use following steps:
 
 1. Generate webhook secret: `openssl rand -hex 32`
 2. In `docker-compose.yml`, set `WEBHOOK_SECRET` env variable of `scoreboard-server` service and `VALORANT_WEBHOOK_SECRET` env variable of `ctfd` to the generated value.

@@ -1,37 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Choose your agent</title>
-	<link rel="stylesheet" type="text/css" href="/plugins/valorant/assets/fonts/tungsten.css">
-	<link rel="stylesheet" type="text/css" href="/plugins/valorant/assets/css/agent-page.css">
-</head>
-<body class="w-screen h-screen flex-col items-center">
-	<div class="mb-5 flex justify-center panel">
-		<picture id="artwork">
-			<source type="image/webp">
-			<img class="block w-full h-full">
-		</picture>
-	</div>
-	<button id="submit" class="mt-auto mb-5 text-white font-tungsten lock-in" onclick="submit()" disabled>Lock in</button>
-	<div class="mb-5 flex-row flex-wrap selector">
-		{% for agent in agents %}
-		<div class="relative flex cursor-pointer agent-card" data-agent="{{ agent }}">
-			<picture>
-				<source srcset="/plugins/valorant/assets/agents/{{agent}}/icon.webp" type="image/webp">
-				<img class="block w-full h-full" src="/plugins/valorant/assets/agents/{{agent}}/icon.png" alt="{{agent}}" />
-			</picture>
-			<div class="absolute top-0 left-0 w-full h-full agent-overlay"></div>
-		</div>
-		{% endfor %}
-	</div>
-	<form action="/agent" method="POST" id="selection" hidden>
-		<input type="text" name="nonce" value="{{ Session.nonce }}" />
-		<input type="text" name="agent" value="" />
-	</form>
-	<script id="chosen_agents" type="application/json">{{ chosen_agents | tojson }}</script>
-	<script src="/plugins/valorant/assets/js/select-agent.js" defer async></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Choose your hero</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/plugins/valorant/assets/fonts/tungsten.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/plugins/valorant/assets/css/agent-page.css"
+    />
+  </head>
+  <body class="w-screen h-screen flex-row items-center">
+    <div class="hero-button-container flex-col items-center">
+      <div class="flex justify-center panel">
+        <video
+          id="artwork"
+          autoplay
+          preload="auto"
+          class="video"
+          muted
+          loop
+        ></video>
+      </div>
+      <button
+        id="submit"
+        class="mt-auto text-white font-radiance lock-in"
+        onclick="submit()"
+        disabled
+      >
+        LOCK IN
+      </button>
+    </div>
+    <div class="flex-row flex-wrap selector">
+      {% for agent in agents %}
+      <div
+        class="relative flex justify-center items-center agent-card"
+        data-agent="{{ agent }}"
+      >
+        <div class="absolute hero-card-image flex justify-center items-center">
+          <video
+            id="{{ agent }} portrait"
+            class="h-full"
+            muted
+            autoplay
+            loop
+            poster="/plugins/valorant/assets/agents/{{agent}}/icon.png"
+          >
+            <source
+              type="video/webm"
+              src="/plugins/valorant/assets/agents/{{agent}}/icon.webm"
+            />
+            <source
+              type="video/mp4"
+              src="/plugins/valorant/assets/agents/{{agent}}/icon.mp4"
+            />
+          </video>
+          <div class="absolute w-full hero-card-name">{{ agent }}</div>
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full agent-overlay"></div>
+      </div>
+      {% endfor %}
+    </div>
+    <form action="/agent" method="POST" id="selection" hidden>
+      <input type="text" name="nonce" value="{{ Session.nonce }}" />
+      <input type="text" name="agent" value="" />
+    </form>
+    <script id="chosen_agents" type="application/json">
+      {{ chosen_agents | tojson }}
+    </script>
+    <script
+      src="/plugins/valorant/assets/js/select-agent.js"
+      defer
+      async
+    ></script>
+    <script>
+      const portrait = document.getElementById("portrait");
+
+      portrait.addEventListener("mouseenter", () => {
+        if (portrait.paused) {
+          portrait.play();
+        }
+      });
+
+      portrait.addEventListener("mouseleave", () => {
+        portrait.pause();
+        portrait.currentTime = 0;
+      });
+    </script>
+  </body>
 </html>

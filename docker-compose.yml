@@ -4,7 +4,7 @@ services:
   scoreboard-server:
     build: ./scoreboard-server
     # environment:
-      # - "WEBHOOK_SECRET="
+      # - WEBHOOK_SECRET=
     restart: always
     networks:
       default:
@@ -58,7 +58,6 @@ services:
       - ctfd
       - scoreboard
       - scoreboard-server
-
   db:
     image: mariadb:10.4.12
     restart: always

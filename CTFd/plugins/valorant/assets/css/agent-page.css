@@ -1,56 +1,114 @@
 @import "common.css";
 
-html, body {
-	height: 100%;
+html,
+body {
+  cursor: url("/plugins/valorant/assets/images/dota2-cursor.png"), auto;
 }
 
 body {
-	background-image: url("/plugins/valorant/assets/images/background.png");
-	background-size: cover;
-	background-repeat: no-repeat;
-	backdrop-filter: blur(5px);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: url("/plugins/valorant/assets/images/heropickbackground.png");
+  /* background-color: #000; */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  backdrop-filter: blur(1px);
+  justify-content: space-between;
 }
 
 .panel {
-	overflow: auto;
+  height: 100%;
 }
 
 .lock-in {
-	padding: 0.5em 2em;
-	background-color: #12d4b4;
-	font-size: 1.2em;
-	border: 1px solid white;
-	transition: all 0.2s ease-in-out;
+  position: absolute;
+  bottom: 32px;
+  height: 64px;
+  padding-left: 80px;
+  padding-right: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(#3d4859, #2c3244);
+  border: none;
+  color: #b6bcc4;
+  font-size: 18px;
+  transition: all 0.2s linear;
+  cursor: url("/plugins/valorant/assets/images/dota2-cursor.png"), auto;
 }
 .lock-in:disabled {
-	color: #30383f;
-	border-color: #30383f;
-	background-color: #0c8c74;
+  color: #5c5e5d;
+  background-image: linear-gradient(#2a2e2f, #191d1e);
 }
-.lock-in:not(:disabled) {
-	cursor: pointer;
-}
+/* .lock-in:not(:disabled) {
+  cursor: pointer;
+} */
 
 .selector {
-	flex-shrink: 0;
-	width: 70%;
-	gap: 0.3em;
+  flex-shrink: 0;
+  width: 42%;
+  gap: 10px;
+  margin-right: 32px;
 }
 
 .agent-card {
-	width: 5em;
-	height: 5em;
-	padding: 0.1em;
-	border: 0.5px solid white;
-	background-color: rgba(255, 255, 255, 0.1);
+  height: 80px;
+  width: 54px;
 }
-
-.agent-overlay:hover {
-	background-color: rgba(255, 255, 255, 0.3);
+.hero-card-image {
+  height: 80px;
+  width: 54px;
+  background-color: #2a2e2f;
+  transition: all 0.2s;
+  filter: grayscale(60%);
+  overflow: hidden;
 }
-.agent-overlay-active {
-	background-color: rgba(255, 255, 255, 0.3);
+.agent-card:hover .hero-card-image {
+  height: 128px;
+  width: 102px;
+  filter: grayscale(0%);
+  z-index: 1;
+}
+.agent-card:hover .hero-card-name {
+  opacity: 1;
 }
 .agent-disabled {
-	background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: grayscale(80%);
+  z-index: 1;
+  transition: all 0.2s;
+}
+.agent-disabled:hover {
+  height: 128px;
+  width: 102px;
+  margin-left: -24px;
+  margin-top: -24px;
+}
+.hero-button-container {
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #000;
+  box-shadow: 0 0 10px 2px #000;
+}
+.hero-card-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  color: #d7d7df;
+  background-color: rgba(10, 10, 10, 0.7);
+  font-size: 10px;
+  font-family: "radiance regular";
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.2s;
+  padding: 2px;
+}
+.video {
+  object-fit: contain;
+  overflow-clip-margin: content-box;
+  overflow: clip;
 }

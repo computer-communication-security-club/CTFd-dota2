@@ -1,13 +1,9 @@
 @font-face {
-    font-family: 'Tungsten';
-    src: url('Tungsten-Bold.woff2') format('woff2'),
-        url('Tungsten-Bold.woff') format('woff');
-    font-weight: bold;
-    font-style: normal;
-    font-display: swap;
+  font-family: "radiance regular";
+  src: url("radiance-regular.otf");
 }
 
-.font-tungsten {
-    letter-spacing: 0.0625em;
-    font-family: 'Tungsten', sans-serif;
+.font-radiance {
+  letter-spacing: 0.0625em;
+  font-family: "radiance regular";
 }

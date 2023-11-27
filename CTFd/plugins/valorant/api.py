@@ -1,18 +1,18 @@
 from flask_restx import Namespace, Resource
 
 from CTFd.api import CTFd_API_v1
-from CTFd.models import Teams
+from CTFd.models import Teams, Solves
 from CTFd.utils import get_config
 from CTFd.utils.dates import ctf_started, ctf_ended
 
 from .models import AgentChoice
 
-valorant_namespace = Namespace("valorant", "Endpoint to retrieve Valorant data")
+valorant_namespace = Namespace("valorant", "Endpoint to retrieve Dota 2 data")
 
 @valorant_namespace.route("/picks")
 class AgentPickList(Resource):
 	@valorant_namespace.doc(
-		description="Get a list of all team and their agent picks",
+		description="Get a list of all team and their hero picks",
 		responses={
 			200: "Success",
 		},
@@ -48,6 +48,33 @@ class CTFStatus(Resource):
 				"startAt": get_config("start"),
 				"endAt": get_config("end"),
 			}
+		}
+
+@valorant_namespace.route("/first-blood")
+class FirstBlood(Resource):
+	@valorant_namespace.doc(
+		description="Get the first blood of every challenge",
+		responses={
+			200: "Success",
+		},
+	)
+	def get(self):
+		solves = Solves.query\
+			.order_by(Solves.date.asc())\
+			.all()
+		first_blood = {}
+		for solve in solves:
+			challenge_id = solve.challenge_id
+			if challenge_id not in first_blood:
+				first_blood[challenge_id] = solve.team_id
+		return {
+			"success": True,
+			"data": list(
+				map(lambda item: {
+					"challenge_id": item[0],
+					"team_id": item[1],
+				}, first_blood.items())
+			)
 		}
 
 @valorant_namespace.route("/standings")
