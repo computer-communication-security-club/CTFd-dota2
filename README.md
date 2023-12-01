@@ -97,6 +97,11 @@ This fork has a Dota 2 plugin for hero select for every team and an integrated s
 8. Configure nginx (`conf/nginx/http.conf`) to serve TLS traffic on domain of your preference.
 9. Run `docker compose up`
 
+#### Screenshots
+![index](CTFd/plugins/valorant/assets/images/dota2-pick-hero.png)
+![users](CTFd/plugins/valorant/assets/images/dota2-picked-heroes.png)
+![teams](CTFd/plugins/valorant/assets/images/dota2-scoreboard.png)
+
 ## Credits
 
 - Logo by [Laura Barbera](http://www.laurabb.com/)
